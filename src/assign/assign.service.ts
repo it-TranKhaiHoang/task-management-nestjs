@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAssignDto } from './dto/create-assign.dto';
-import { UpdateAssignDto } from './dto/update-assign.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Assign } from './schema/assign.schema';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class AssignService {
-  create(createAssignDto: CreateAssignDto) {
-    return 'This action adds a new assign';
+  constructor(
+    @InjectModel(Assign.name)
+    private assignModel: mongoose.Model<Assign>,
+  ) {}
+
+  async create(assign: Assign): Promise<Assign> {
+    const res = await this.assignModel.create(assign);
+    return res;
   }
 
-  findAll() {
-    return `This action returns all assign`;
+  async findAll(): Promise<Assign[]> {
+    const assigns = await this.assignModel.find();
+    return assigns;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} assign`;
+  async findOne(id: string): Promise<Assign> {
+    const assign = await this.assignModel.findById(id);
+    return assign;
   }
 
-  update(id: number, updateAssignDto: UpdateAssignDto) {
-    return `This action updates a #${id} assign`;
+  async update(id: string, assign: Assign): Promise<Assign> {
+    return await this.assignModel.findByIdAndUpdate(id, assign, {
+      new: true,
+      runValidators: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} assign`;
+  async delete(id: string): Promise<Assign> {
+    return await this.assignModel.findByIdAndDelete(id);
   }
 }

@@ -8,7 +8,7 @@ import {
   Post,
   Body,
   Param,
-  Put,
+  Patch,
   Delete,
 } from '@nestjs/common';
 
@@ -41,7 +41,7 @@ export class UserController {
   }
 
   // Update user by Id
-  @Put(':id')
+  @Patch(':id')
   async updateUserById(
     @Param('id')
     id: string,
