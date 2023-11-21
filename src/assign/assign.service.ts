@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Assign } from './schema/assign.schema';
 import mongoose from 'mongoose';
@@ -22,6 +22,9 @@ export class AssignService {
 
   async findOne(id: string): Promise<Assign> {
     const assign = await this.assignModel.findById(id);
+    if (!assign) {
+      throw new NotFoundException('Assign not found');
+    }
     return assign;
   }
 

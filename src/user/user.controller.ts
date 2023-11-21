@@ -1,16 +1,7 @@
-import { CreteUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/user.schema';
 import { UserService } from './user.service';
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Patch,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Body, Param, Patch, Delete } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -20,15 +11,6 @@ export class UserController {
   @Get()
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
-  }
-
-  // Register new user
-  @Post()
-  async createUser(
-    @Body()
-    user: CreteUserDto,
-  ): Promise<User> {
-    return this.userService.create(user);
   }
 
   // Get user by Id

@@ -1,13 +1,7 @@
-import {
-  Injectable,
-  NotFoundException,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { User } from './schemas/user.schema';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -20,21 +14,6 @@ export class UserService {
   async findAll(): Promise<User[]> {
     const users = await this.userModel.find();
     return users;
-  }
-
-  //   Create new user service
-  async create(user: User): Promise<User> {
-    // Hash password
-    user.password = await bcrypt.hash(user.password, 10);
-
-    // Check email is exist
-    const isExitsEmail = await this.userModel.findOne({ email: user.email });
-
-    if (isExitsEmail) {
-      throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
-    }
-    const res = await this.userModel.create(user);
-    return res;
   }
 
   // Find user by id service
@@ -57,18 +36,5 @@ export class UserService {
   // Delete user by id service
   async deleteById(id: string): Promise<User> {
     return await this.userModel.findByIdAndDelete(id);
-  }
-
-  // File user when login
-  async findByLogin(email: string, password: string): Promise<User> {
-    const user = await this.userModel.findOne({ email: email });
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
-    }
-    const isEqual = bcrypt.compareSync(password, user.password);
-    if (!isEqual) {
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-    }
-    return user;
   }
 }
