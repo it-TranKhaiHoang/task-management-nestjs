@@ -25,7 +25,14 @@ export class UserService {
   //   Create new user service
   async create(user: User): Promise<User> {
     // Hash password
-    user.password = await bcrypt.hashSync(user.password, 10);
+    user.password = await bcrypt.hash(user.password, 10);
+
+    // Check email is exist
+    const isExitsEmail = await this.userModel.findOne({ email: user.email });
+
+    if (isExitsEmail) {
+      throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
+    }
     const res = await this.userModel.create(user);
     return res;
   }
