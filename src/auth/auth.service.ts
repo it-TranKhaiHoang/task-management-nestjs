@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   // Auth login service
-  async login({ email, password }: LoginUserDto): Promise<string> {
+  async login({ email, password }: LoginUserDto): Promise<any> {
     const user = await this.userModel.findOne({ email: email });
     if (!user) {
       throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
@@ -39,16 +39,9 @@ export class AuthService {
     if (!isEqual) {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
-    return await this.createToken({ email });
-  }
-
-  private createToken({ email }): Promise<string> {
-    return this.jwtService.signAsync(
-      { email },
-      {
-        expiresIn: process.env.EXPIRESIN,
-        secret: process.env.SECRET,
-      },
-    );
+    const payload = { sub: user._id, email: user.email };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
