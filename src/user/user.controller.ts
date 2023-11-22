@@ -1,13 +1,22 @@
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/user.schema';
 import { UserService } from './user.service';
-import { Controller, Get, Body, Param, Patch, Delete } from '@nestjs/common';
-
+import {
+  Controller,
+  Get,
+  Body,
+  Param,
+  Patch,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '../auth/guard/jwt.guard';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   // Get all user controller
+  @UseGuards(AuthGuard)
   @Get()
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
