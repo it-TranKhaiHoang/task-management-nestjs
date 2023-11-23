@@ -1,4 +1,4 @@
-import { Role } from '../schemas/user.schema';
+import { Role } from "../schemas/user.schema";
 
 export class CreteUserDto {
   readonly fullname: string;

@@ -1,40 +1,32 @@
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './schemas/user.schema';
-import { UserService } from './user.service';
-import {
-  Controller,
-  Get,
-  Body,
-  Param,
-  Patch,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
-import { AuthGuard } from '../auth/guard/jwt.guard';
-@Controller('user')
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./schemas/user.schema";
+import { UserService } from "./user.service";
+import { Controller, Get, Body, Param, Patch, Delete, UseGuards } from "@nestjs/common";
+import { JwtGuard } from "../auth/guard/jwt.guard";
+@Controller("user")
 export class UserController {
   constructor(private userService: UserService) {}
 
   // Get all user controller
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtGuard)
   @Get()
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   // Get user by Id
-  @Get(':id')
+  @Get(":id")
   async getUserById(
-    @Param('id')
+    @Param("id")
     id: string,
   ): Promise<User> {
     return this.userService.findById(id);
   }
 
   // Update user by Id
-  @Patch(':id')
+  @Patch(":id")
   async updateUserById(
-    @Param('id')
+    @Param("id")
     id: string,
     @Body()
     user: UpdateUserDto,
@@ -43,9 +35,9 @@ export class UserController {
   }
 
   // Delete user by Id
-  @Delete(':id')
+  @Delete(":id")
   async deleteUserById(
-    @Param('id')
+    @Param("id")
     id: string,
   ): Promise<User> {
     return this.userService.deleteById(id);

@@ -1,4 +1,4 @@
-import { Role } from 'src/user/schemas/user.schema';
+import { Role } from "src/user/schemas/user.schema";
 
 export class RegisterUserDto {
   readonly fullname: string;

@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 
 export enum Role {
-  ADMIN = 'Admin',
-  STAFF = 'Staff',
+  ADMIN = "Admin",
+  STAFF = "Staff",
 }
 
 @Schema({
