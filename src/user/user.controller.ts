@@ -2,7 +2,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./schemas/user.schema";
 import { UserService } from "./user.service";
 import { Controller, Get, Body, Param, Patch, Delete, UseGuards } from "@nestjs/common";
-import { JwtGuard } from "../auth/guard/jwt.guard";
+import { JwtGuard } from "../auth/auth.guard";
 @Controller("user")
 export class UserController {
   constructor(private userService: UserService) {}

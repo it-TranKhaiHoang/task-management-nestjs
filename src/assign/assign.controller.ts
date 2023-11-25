@@ -1,18 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { AssignService } from './assign.service';
-import { CreateAssignDto } from './dto/create-assign.dto';
-import { UpdateAssignDto } from './dto/update-assign.dto';
-import { Assign } from './schema/assign.schema';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { AssignService } from "./assign.service";
+import { CreateAssignDto } from "./dto/create-assign.dto";
+import { UpdateAssignDto } from "./dto/update-assign.dto";
+import { Assign } from "./schema/assign.schema";
 
-@Controller('assign')
+@Controller("assign")
 export class AssignController {
   constructor(private assignService: AssignService) {}
 
@@ -32,20 +24,20 @@ export class AssignController {
   }
 
   // Get assign by id
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<Assign> {
+  @Get(":id")
+  findOne(@Param("id") id: string): Promise<Assign> {
     return this.assignService.findOne(id);
   }
 
   // Update assign by id
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() assign: UpdateAssignDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() assign: UpdateAssignDto) {
     return this.assignService.update(id, assign);
   }
 
   // Delete assign by id
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.assignService.delete(id);
   }
 }
