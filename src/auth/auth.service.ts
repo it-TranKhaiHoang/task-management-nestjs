@@ -31,10 +31,10 @@ export class AuthService {
   async validateUser({ email, password }): Promise<any> {
     // Get user by email
     const user = await this.userService.findByEmail(email);
-
     // Check email and password
-    if (user && bcrypt.compareSync(password, user.password)) {
+    if (user && (await bcrypt.compareSync(password, user.password))) {
       const { password, ...result } = user;
+      console.log(result);
       return result;
     }
 
@@ -44,7 +44,12 @@ export class AuthService {
   // Auth login service
   async signIn({ email, password }: LoginUserDto): Promise<any> {
     const user = await this.validateUser({ email, password });
-    const payload = { sub: user.fullname, email: user.email };
+
+    const payload = {
+      sub: user.role,
+      fullname: user.fullname,
+      email: user.email,
+    };
 
     return {
       access_token: await this.jwtService.signAsync(payload, {
@@ -61,9 +66,11 @@ export class AuthService {
   // Refresh token
   async refreshToken(user: User): Promise<any> {
     const payload = {
-      sub: user.fullname,
+      sub: user.role,
+      fullname: user.fullname,
       email: user.email,
     };
+
     return {
       access_token: await this.jwtService.signAsync(payload, {
         expiresIn: process.env.EXPIRES_IN_ACCESS_TOKEN,

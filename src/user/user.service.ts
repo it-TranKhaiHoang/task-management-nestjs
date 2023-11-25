@@ -23,7 +23,7 @@ export class UserService {
 
   // Get user by Email
   async findByEmail(email: string): Promise<User> {
-    const user = await this.userModel.findOne({ email: email });
+    const user = await this.userModel.findOne({ email: email }).select("_id fullname role password email").lean();
     return user;
   }
 

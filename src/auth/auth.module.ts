@@ -12,7 +12,8 @@ import { UserService } from "src/user/user.service";
     PassportModule.register({ defaultStrategy: "jwt" }),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET_KEY,
+      secret: `SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`,
+      // secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: "60s" },
     }),
     MongooseModule.forFeature([{ name: "User", schema: UserSchema }]),
