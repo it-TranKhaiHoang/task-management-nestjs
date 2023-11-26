@@ -3,7 +3,7 @@ import { LoginUserDto } from "./dto/login-user.dto";
 import { User } from "src/user/schemas/user.schema";
 import { AuthService } from "./auth.service";
 import { Body, Controller, Post, HttpCode, HttpStatus, UseGuards, Request } from "@nestjs/common";
-import { RefreshJwtGuard } from "./auth.guard";
+import { RefreshJwtGuard } from "./guards/jwt.guard";
 
 @Controller("auth")
 export class AuthController {

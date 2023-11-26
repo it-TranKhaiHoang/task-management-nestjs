@@ -2,7 +2,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./schemas/user.schema";
 import { UserService } from "./user.service";
 import { Controller, Get, Body, Param, Patch, Delete, UseGuards } from "@nestjs/common";
-import { JwtGuard } from "../auth/auth.guard";
+import { JwtGuard } from "../auth/guards/jwt.guard";
 import { Role } from "src/auth/roles/role.enum";
 import { Roles } from "src/auth/roles/roles.decorator";
 import { RolesGuard } from "src/auth/guards/roles.guard";
