@@ -5,6 +5,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { AssignModule } from "./assign/assign.module";
 import { UserModule } from "./user/user.module";
 import { AbilityModule } from "./ability/ability.module";
+import { ProjectModule } from "./project/project.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AbilityModule } from "./ability/ability.module";
     AssignModule,
     AuthModule,
     AbilityModule,
+    ProjectModule,
   ],
 })
 export class AppModule {}

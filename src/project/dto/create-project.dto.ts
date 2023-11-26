@@ -1,9 +1,9 @@
 import { Types } from "mongoose";
 import { Status } from "../schema/project.schema";
-import { IsNotEmpty, IsNotEmptyObject } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 
 export class CreateProjectDto {
-  @IsNotEmptyObject()
+  @IsNotEmpty()
   leader: { type: Types.ObjectId; ref: "User" };
 
   @IsNotEmpty()
