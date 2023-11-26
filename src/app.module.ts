@@ -4,9 +4,7 @@ import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { AssignModule } from "./assign/assign.module";
 import { UserModule } from "./user/user.module";
-import { APP_GUARD } from "@nestjs/core";
-import { RolesGuard } from "./auth/guards/roles.guard";
-import { AbilityModule } from './ability/ability.module';
+import { AbilityModule } from "./ability/ability.module";
 
 @Module({
   imports: [
@@ -19,12 +17,6 @@ import { AbilityModule } from './ability/ability.module';
     AssignModule,
     AuthModule,
     AbilityModule,
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
   ],
 })
 export class AppModule {}

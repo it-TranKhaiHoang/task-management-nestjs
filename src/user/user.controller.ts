@@ -3,16 +3,17 @@ import { User } from "./schemas/user.schema";
 import { UserService } from "./user.service";
 import { Controller, Get, Body, Param, Patch, Delete, UseGuards } from "@nestjs/common";
 import { JwtGuard } from "../auth/auth.guard";
-// import { Role } from "src/auth/roles/role.enum";
-// import { Roles } from "src/auth/roles/roles.decorator";
+import { Role } from "src/auth/roles/role.enum";
+import { Roles } from "src/auth/roles/roles.decorator";
+import { RolesGuard } from "src/auth/guards/roles.guard";
 
 @Controller("user")
 export class UserController {
   constructor(private userService: UserService) {}
 
   // Get all user controller
-  @UseGuards(JwtGuard)
-  // @Roles(Role.Admin)
+  @Roles(Role.Admin)
+  @UseGuards(JwtGuard, RolesGuard)
   @Get()
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();

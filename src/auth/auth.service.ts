@@ -34,7 +34,6 @@ export class AuthService {
     // Check email and password
     if (user && (await bcrypt.compareSync(password, user.password))) {
       const { password, ...result } = user;
-      console.log(result);
       return result;
     }
 
@@ -46,7 +45,7 @@ export class AuthService {
     const user = await this.validateUser({ email, password });
 
     const payload = {
-      sub: user.role,
+      role: user.role,
       fullname: user.fullname,
       email: user.email,
     };
@@ -66,7 +65,7 @@ export class AuthService {
   // Refresh token
   async refreshToken(user: User): Promise<any> {
     const payload = {
-      sub: user.role,
+      role: user.role,
       fullname: user.fullname,
       email: user.email,
     };
