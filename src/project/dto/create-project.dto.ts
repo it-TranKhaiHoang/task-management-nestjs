@@ -4,7 +4,7 @@ import { IsNotEmpty } from "class-validator";
 
 export class CreateProjectDto {
   @IsNotEmpty()
-  leader: { type: Types.ObjectId; ref: "User" };
+  leader: string;
 
   @IsNotEmpty()
   name: string;
