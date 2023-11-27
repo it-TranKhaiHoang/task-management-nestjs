@@ -1,17 +1,17 @@
 import { Types } from "mongoose";
-import { IsNotEmpty, IsNotEmptyObject } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 
 export class CreateTaskDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmptyObject()
-  project: { type: Types.ObjectId; ref: "Project" };
+  @IsNotEmpty()
+  project: string;
 
   description: string;
 
-  @IsNotEmptyObject()
-  members: [{ type: Types.ObjectId; ref: "User" }];
+  @IsNotEmpty()
+  members: [string];
 
   @IsNotEmpty()
   start_date: Date;
