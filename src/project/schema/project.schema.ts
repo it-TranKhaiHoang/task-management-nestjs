@@ -19,7 +19,7 @@ export class Project {
   @Prop()
   name: string;
 
-  @Prop()
+  @Prop({default: Status.TODO})
   status: Status;
 }
 export const ProjectSchema = SchemaFactory.createForClass(Project);
