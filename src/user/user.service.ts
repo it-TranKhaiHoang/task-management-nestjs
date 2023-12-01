@@ -48,4 +48,19 @@ export class UserService {
   async deleteById(id: string): Promise<User> {
     return await this.userModel.findByIdAndDelete(id);
   }
+
+  // Check user exist
+  async checkExist(listID: string[]) {
+    try {
+      const usersExist = await Promise.all(
+        listID.map(async userID => {
+          const user = await this.userModel.findById(userID).exec();
+          return user !== null;
+        }),
+      );
+      return usersExist.every(exists => exists);
+    } catch (error) {
+      throw new Error(`Error checking user existence: ${error.message}`);
+    }
+  }
 }

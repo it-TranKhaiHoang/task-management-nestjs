@@ -6,6 +6,7 @@ import { AssignModule } from "./assign/assign.module";
 import { UserModule } from "./user/user.module";
 import { AbilityModule } from "./ability/ability.module";
 import { ProjectModule } from "./project/project.module";
+import { TaskModule } from "./task/task.module";
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ProjectModule } from "./project/project.module";
     AuthModule,
     AbilityModule,
     ProjectModule,
+    TaskModule,
   ],
 })
 export class AppModule {}
