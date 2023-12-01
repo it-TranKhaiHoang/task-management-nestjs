@@ -20,16 +20,19 @@ export class TaskService {
     const listMemberID = createTaskDto.members;
 
     // Check project is exist
-    // const project = await this.projectService.findOne(projectID);
-    // if (!project) {
-    //   throw new NotFoundException("Project not found");
-    // }
+    const project = await this.projectService.findOne(projectID);
+    if (!project) {
+      throw new NotFoundException("Project not found");
+    }
+    // Check list user is exist
     if (listMemberID.length > 0) {
       const isExits = await this.userService.checkExist(listMemberID);
-      console.log(isExits);
+      if (!isExits) {
+        throw new NotFoundException("User not found");
+      }
     }
-
-    return "This action adds a new task";
+    const res = await this.taskModel.create(createTaskDto);
+    return res;
   }
 
   findAll() {
